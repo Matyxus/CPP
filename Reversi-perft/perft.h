@@ -21,15 +21,15 @@ class perft {
         std::queue<std::tuple<uint64_t, uint64_t, int>> queue;
     public:
         /*
-            Sequential search tup to ceratin depth, returns number of found moves.
+            Sequential search up to ceratin depth, returns number of found moves.
         */
         uint64_t sequential(uint64_t curr_board, uint64_t enemy_board, int depth);
         /*
-            Parallelized sequeantial function, storest result of found moves in node_count.
+            Parallelized sequential function, stores result of found moves in "node_count".
         */
         void parallel(int depth, int num_threads);
         /*
-            Pushes boards found at depth into queue, resulting depth is in to_depth.
+            Pushes boards found at depth into queue, resulting depth is in "to_depth".
         */
         void explore(uint64_t curr_board, uint64_t enemy_board, int depth, int to_depth);
         
@@ -41,7 +41,7 @@ class perft {
         const inline int bit_scan_reverse(const uint64_t num) {
             return 63-__builtin_clzll(num);
         }
-        
+
         perft(bool parallelize, int to_depth, int num_threads=2);
         ~perft();
 };
