@@ -49,7 +49,7 @@ void perft::parallel(int depth, int thread_count) {
     // each thread after finishing its work, will check if there are enough boards in queue,
     // if not, it will explore and push more boards into queue, than start working, all threads will
     // behave similary, if boards in queue have less than "depth"-8 depth, no more will be pushed into queue.
-    
+
     bool resize = true;   
     #pragma omp parallel reduction(+ : node_count) num_threads(thread_count)
     {   
@@ -159,7 +159,7 @@ uint64_t perft::sequential(uint64_t curr_board, uint64_t enemy_board, int depth)
 }
 
 /*
-    Generates all moves for "curr_board", and returns them.
+    Generates all moves for "curr_board", and return them.
 */
 uint64_t perft::generate_moves(const uint64_t curr_board, const uint64_t enemy_board) {
     uint64_t moves = 0;

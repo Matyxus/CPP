@@ -1,13 +1,11 @@
 #pragma once
-// Random numbers for black-board hashing.
 #include <stdint.h>
-
 #include <time.h>
 #include <iostream>
+#include <iomanip>
 #include <queue>
 #include <tuple>
 #include <omp.h>
-#include <iomanip>
 
 class perft {
     private:
@@ -43,7 +41,7 @@ class perft {
         const inline int bit_scan_reverse(const uint64_t num) {
             return 63-__builtin_clzll(num);
         }
-
+        
         perft(bool parallelize, int to_depth, int num_threads=2);
         ~perft();
 };
