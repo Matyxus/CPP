@@ -1,0 +1,1 @@
+g++ -std=c++11 -pipe -Wall -O3 -c graph.cpp
