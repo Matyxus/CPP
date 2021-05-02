@@ -6,14 +6,21 @@
 #include <algorithm>
 #include <map>
 
-// g++ -std=c++11 -pipe -Wall -O3 -c main.cpp
-// g++ -std=c++11 main.o -o main
+//Check hw7_image for graphical representation of second test case (.in file).
+
+/*
+Given lists of cities and connections between pairs of cities including cost of travel, 
+list of cities that are on the prime Meridian.
+Find lowest cost of trip, where you start on one of the cities that are on the prime Meridian, and you have to
+travel to "P" cities that are also on the prime Meridian (including the last city.).
+Return the lowest cost of this trip.
+*/
 
 typedef struct node {
     int curr_min_distance; // current minimal distance ofund
     int search; // what was being search for on this node
     int id; // id
-    bool end_node; // is polar city ?
+    bool end_node; // is 0th meridian city ?
     std::vector<std::pair<int, int>> edge_cost; // pair.first = city, pair.second = cost of the path
     std::vector<int> in_neighbours; // in
     std::vector<int> out_neighbours; // out, empty for cities connected to polar cities

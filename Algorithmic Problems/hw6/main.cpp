@@ -7,8 +7,14 @@
 #include <algorithm>
 
 using namespace std;
-// g++ -std=c++11 -pipe -Wall -O3 -c main.cpp
-// g++ -std=c++11 main.o -o main
+//Check hw6_image for graphical representation of first test case (.in file).
+
+/*
+Find 3 days: A, B C: such that, B is after A, but before C.
+T_A, T_B, T_C are average temperatures measured in those days.
+Evalute only those, that meet the requirement T_A ≤ T_B ≤ T_C.
+Quality is equal to min{T_B−T_A,  T_C−T_B}, find highest quality and return it.
+*/
 
 inline void getInt(int &n) {
     n = 0; 

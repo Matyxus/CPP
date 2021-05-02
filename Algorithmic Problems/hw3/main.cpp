@@ -7,8 +7,19 @@
 #define VALIDATOR 1
 #define EXTRACTOR 2
 
-// g++ -std=c++11 -pipe -Wall -O3 -c graph.cpp
-// g++ -std=c++11 graph.o -o main
+
+// Check hw3_image for graphical representation of second test case (.in file).
+/*
+Every working station is connected with exactly one computer, which is always ROUTER
+Every ROUTER is connected with 2 or 3 computers.
+There is atlease one router connectd with two computers.
+For every two computers A, B: exists exactly one sequence of different computers P_1...P_n (n ≥ 2), where
+A=P_1, B=P_n and P_1 is connected with P_(i+1)  (i = 1,...,n-1).
+
+Given topology of computer network, list of EXTRACTORs and VALIDATORs, 
+find maximal number of pairs EXTRACTOR-VALIDATOR, that can be paired.
+*/
+
 
 typedef struct node {
     int id;
@@ -80,12 +91,13 @@ class graph {
                     break;
                 } 
             }
-
+            // Construct binary tree.
             root = nodes[i];
             root->left = nodes[root->connections[0]];
             root->right = nodes[root->connections[1]];
             NodeImpl(nodes[root->connections[0]], root);
             NodeImpl(nodes[root->connections[1]], root);
+            // Remove unwanted.
             for (auto const &pair : to_remove) {
                 if (nodes[pair.first]->left->id == pair.second) {
                     nodes[pair.first]->left = nodes[pair.first]->right;
@@ -94,28 +106,10 @@ class graph {
                     nodes[pair.first]->right = nullptr;
                 }
             }
-            //printer(root);
-            explore(root);
+            explore(root); // Find solution.
             printf("%d\n", pairs);
         }
-        void printer(node* ptr) {
-            if( ptr == nullptr ) { 
-                return;
-            }
-            std::queue<node*> q; // init
-            q.push(ptr); // root into queue
-            while( !q.empty() ) {
-                ptr = q.front();
-                q.pop();
-                printf("%d\n" , ptr->id+1); // process node
-                if( ptr->left != nullptr ) {
-                    q.push( ptr->left );
-                }
-                if( ptr->right != nullptr ) {
-                    q.push( ptr->right );
-                }
-            }
-        }
+
         void NodeImpl(node* ptr, node* parent) {
             ptr->parent = parent;
             if (ptr->connections.size() == 1) {
@@ -150,8 +144,9 @@ class graph {
                 }
             }
         }
+
         int explore(node* ptr) {
-            // edning node, Extracor or Validator, return its type
+            // ending node, Extracor or Validator, return its type
             if (ptr->connections.size() == 1) {
                 return ptr->type;
             }

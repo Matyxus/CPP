@@ -5,12 +5,21 @@
 #include <assert.h>
 #include <limits>
 #include <algorithm>
- 
-// g++ -std=c++11 -pipe -Wall -O3 -c main.cpp
-// g++ -std=c++11 main.o -o main
- 
+  
 using namespace std;
- 
+
+// Check hw5_image for graphical representation of first test case (.in file).
+/*
+Modified AVL-tree.
+If parent has two children, delete always looks for substitute in right-subtree.
+If inserting value that is already in tree, dont do anything. (positive number on input)
+If deleting value that is not in tree, dont do anything. (negative number on input)
+L = number of nodes in left-subtree, R = number of nodes in right-subtree of node U.
+If |L−R| > ⌊(max(L,R) + 1)/2⌋, reorganize sub-tree of U, to be perfectly balances Binary Tree.
+
+Return depth of tree, number of nodes in Left-subtree, Right-subtree. (from root)
+*/
+
 //node declaration
 typedef struct avl {
     int left_count;
@@ -81,7 +90,7 @@ avl* avl_tree::sortedArrayToBST(int start, int end)  {
     assert(RT >= 0);
     assert(LT >= 0);
     //printf("Node %d, will have %d left, %d right\n", root->num, root->left_count, root->right_count);
-    /* Recursively construct the left subtree and make it  left child of root */
+    /* Recursively construct the left subtree and make it left child of root */
     if (LT == 1) {
         root->l = (avl*) malloc(sizeof(avl));
         root->l->num = sorted_array[start+LT-1];
@@ -171,7 +180,6 @@ void avl_tree::inorder_print(avl *r) {
     inorder_print(r->l);
     //printf("%d ", r->num);
     inorder_print(r->r);
- 
 }
  
 void avl_tree::dealoc(avl* r) {

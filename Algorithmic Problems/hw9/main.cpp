@@ -6,48 +6,56 @@
 #include <limits>
 #include <algorithm>
 #include <map>
-// Hledání optimální trojnožky v binárním černo-bílém stromu
-// Search for optimal tripode in red and black trees.
 
-// g++ -std=c++11 -pipe -Wall -O3 -c main.cpp
-// g++ -std=c++11 main.o -o main
-// code is mainly from homework 5
-using namespace std;
- 
+using namespace std; 
+// Search for optimal tripode in red and black trees.
+// Check hw9_image for graphical representation of first test case (.in file).
+/*
+Tripode is:
+    continuous graph.
+    has one 3rd-degree node, called central node.
+    has 3 one-degree nodes.
+    unlimited number of 2nd-degree nodes.
+
+Given binary tree T, where each node is either black or red.
+Find sub-graph in T, that is tripode and has maximal number of black nodes.
+Return the number of black nodes.
+*/
+
 //node declaration
-typedef struct avl {
+typedef struct node {
     int num;
     int best_top;
     int best_left;
     int best_right;
     bool black;
-    struct avl *l;
-    struct avl *r;
-    struct avl *parent;
-} avl;
-// class
-class avl_tree {
+    struct node *l;
+    struct node *r;
+    struct node *parent;
+} node;
+
+class tree {
     private:
-        avl *root = nullptr;
+        node *root = nullptr;
         bool black = false;
         int N = 0; // number of inputs
-        vector<avl*> array; // third degree nodes
+        vector<node*> array; // third degree nodes
     public:
-        void print_tree(avl* root, int space);
-        void insert(avl **, avl* parent, const int);
-        void dealoc(avl *);
-        void inorder_print(avl *);
+        void print_tree(node* root, int space);
+        void insert(node **, node* parent, const int);
+        void dealoc(node *);
+        void inorder_print(node *);
         void init();
-        void find_degree(avl* node);
-        void top(avl* node);
-        int best_left_right(avl* node);
-        avl_tree() {};
-        ~avl_tree() { dealoc(root);};
+        void find_degree(node* node);
+        void top(node* node);
+        int best_left_right(node* node);
+        tree() {};
+        ~tree() { dealoc(root);};
 };
 /*
     Prints tree, not recomanded for trees over 100 nodes.
 */
-void avl_tree::print_tree(avl* root, int space) {
+void tree::print_tree(node* root, int space) {
     if (root == nullptr) {
         return;
     }
@@ -60,9 +68,9 @@ void avl_tree::print_tree(avl* root, int space) {
 /*
     Insert into binary tree.
 */
-void avl_tree::insert(avl **r, avl* parent, const int v) {
+void tree::insert(node **r, node* parent, const int v) {
     if (*r == nullptr) {
-        *r = (avl*) malloc(sizeof(avl));
+        *r = (node*) malloc(sizeof(node));
         (*r)->best_top = 0;
         (*r)->best_left = 0;
         (*r)->best_right = 0;
@@ -88,7 +96,7 @@ void avl_tree::insert(avl **r, avl* parent, const int v) {
 /*
     Inorder print of binary tree.
 */
-void avl_tree::inorder_print(avl *r) {
+void tree::inorder_print(node *r) {
     if (r == nullptr) {
         return;
     }
@@ -99,7 +107,7 @@ void avl_tree::inorder_print(avl *r) {
 /*
     Finds third degree nodes, starts from left of root, and right of root
 */
-void avl_tree::find_degree(avl* node) {
+void tree::find_degree(node* node) {
     if (node->l != nullptr && node->r != nullptr) {
         //printf("%d is 3degree\n", node->num);
         array.push_back(node);
@@ -115,7 +123,7 @@ void avl_tree::find_degree(avl* node) {
 /*
     Free memory.
 */
-void avl_tree::dealoc(avl* r) {
+void tree::dealoc(node* r) {
     if (r == nullptr) {
         return;
     }
@@ -128,7 +136,7 @@ void avl_tree::dealoc(avl* r) {
 /*
     "Main".
 */
-void avl_tree::init() {
+void tree::init() {
     int temp = 0;
     scanf("%d", &N);
     // load input
@@ -157,7 +165,7 @@ void avl_tree::init() {
     Finds best path from top, if going to left child, compare with current top and right,
     if going to right child, compare with current top and right paths.
 */
-void avl_tree::top(avl* node) {
+void tree::top(node* node) {
     if (node == nullptr) {
         return;
     }
@@ -175,7 +183,7 @@ void avl_tree::top(avl* node) {
 /*
     Finds best right and left path (similar to depth function).
 */  
-int avl_tree::best_left_right(avl* node) {  
+int tree::best_left_right(node* node) {  
     if (node == nullptr) {
         return 0; 
     } else  { 
@@ -194,7 +202,7 @@ int avl_tree::best_left_right(avl* node) {
 
 
 int main(int argc, char const *argv[]) {
-    avl_tree tree;
+    tree tree;
     tree.init();
     return 0;
 }

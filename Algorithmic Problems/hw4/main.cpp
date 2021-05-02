@@ -5,13 +5,15 @@
 #include <assert.h>
 #include <limits>
 
-int x_change[] = {1, 0, -1, 0};
-int y_change[] = {0, 1, 0, -1};
+// Check hw4_image for graphical representation of first and second test cases (.in file).
+/*
+Find shortest path for robot in maze.
+Robot has to visit all "signs", starting with 1, ending at T, exactly in this sequence.
+Return the number of steps.
+*/
 
-
-// g++ -std=c++11 -pipe -Wall -O3 -c main.cpp
-// g++ -std=c++11 main.o -o main
-
+const int x_change[] = {1, 0, -1, 0};
+const int y_change[] = {0, 1, 0, -1};
 
 typedef struct node {
     int search; // what is being searched for on this node

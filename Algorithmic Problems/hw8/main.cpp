@@ -7,8 +7,24 @@
 #include <algorithm>
 #include <map>
 
-// g++ -std=c++11 -pipe -Wall -O3 -c main.cpp
-// g++ -std=c++11 main.o -o main
+// Check hw8_image for graphical representation of first test case (.in file).
+/*
+Villages V_1 ... V_n.
+P_i describes difference between production and consumption of village V_i.
+To construct road between V_j and V_(j+1):
+    V_i is village with lowest index, that is reachable from V_j by already constructed roads.
+    V_k is village with highest index, that is reachable from V_(j+1) by already constructed roads.
+    The cost of road between V_j and V_(j+1) is given by production and consumption of villages V_i...V_k.
+    S_1 = P_i + ... + P_j (difference between consumption and production of villages V_i...V_j)
+    S_2 = P_(j+1) + ... + P_k (difference between consumption and production of villages V_(j+1)..V_k)
+    S_min  = min{S1, S2}, S_max = max{S1, S2}, S = min{|S_min|, |S_max|} and L = k − i.
+    if S_min < 0 < S_max and S > L, than the cost of road will be S-L, else 0.
+
+Given numbers P_i describing difference of production and consumption in villages.
+Given cost of construction for one road.
+It is known which village is the main one.
+Find optimal plan for road construction that will lead to highest profit, return the profit.
+*/
 
 int main(int argc, char const *argv[]) {
     int N = 0; // Number of villages 
@@ -86,7 +102,6 @@ int main(int argc, char const *argv[]) {
     }
     free(cost);
     free(result);
-    char* ping = "dnes+zitra\n";
     return 0;
 }
 
